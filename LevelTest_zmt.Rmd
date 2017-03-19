@@ -1,0 +1,60 @@
+---
+title: "Advanced R"
+subtitle: "Level Test"
+author: "zmt"
+output: 
+  pdf_document: 
+    fig_caption: yes
+    keep_tex: yes
+    latex_engine: xelatex
+    toc: yes
+header-includes:
+- \usepackage{ctex}
+---
+## 向量运算
+
+- 测试：编写一个函数findNum(y,x,l)计算在y向量中数字x连续出现l次的位置。
+
+```{r,eval=FALSE}
+findNum <- function(y, x, l) {
+  z <- numeric()
+  n <- length(y)
+  for(i in 1:(n-l+1)) {
+    if(all(y[i:(i+l-1)] == x)) {
+      z <- c(z, i)
+      }
+  }
+  return(z)
+}
+y <- c(3,3,3,0,1,2,3,3,3)
+findNum(y, 3, 3)
+```
+
+
+## 数据结构
+
+- 测试：计算每天最低气温和最高气温的差值
+
+```{r, eval=FALSE}
+raw <- read.delim("weather.txt", check.names = F, na.strings = ".")
+View(raw)
+library(reshape2)
+raw %>% melt(id.vars = c("year", "month", "element"), na.rm = T, variable.name = "day") %>% dcast(year + month + day ~ element) -> raw
+range <- raw$tmax-raw$tmin
+raw <- data.frame(raw, range)
+View(raw)
+```
+
+## 分组处理
+
+- 测试：计算每个航空公司(UniqueCarrier)每个月到达延误时间(ArrDelay)的十分位(quantile)的均值。
+
+```{r,eval=FALSE}
+#计算hfflights
+library(hflights)
+library(plyr)
+str(hflights)
+View(hflights)
+ArrDelay_mean <- ddply(hflights, c("UniqueCarrier","Month"), summarise, mean=mean(quantile(ArrDelay,0.1,na.rm=TRUE)))
+View(ArrDelay_mean)
+```
