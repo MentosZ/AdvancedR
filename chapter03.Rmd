@@ -245,7 +245,7 @@ x[order(x)]
 ```{r}
 df<-data.frame(x=c(2,4,1),y=c(9,11,6),n=c(3,5,1))
 a<-rep(1:nrow(df),df$n)
-df[a,]
+df[a,]                    
 ```
 
 - 删除数据框中某些列(字符子集选取)
@@ -271,7 +271,7 @@ mtcars[mtcars$gear==5 & mtcars$cyl==4,]
 - 布尔代数与集合(逻辑和整数子集选取)
 
 ```{r}
-x<-sample(10)<4
+x <- sample(10) < 4
 which(x)
 which.max()
 which.min()
