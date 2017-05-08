@@ -60,11 +60,13 @@ knitr::opts_chunk$set(echo =T,eval = FALSE)
 - enviroment() 函数变量位置的“地图” 
 
 ```{r}
-f<-function(x){
-  x^2}
+f <- function(x) {
+  x ^ 2
+}
+
+
 formals(f)
 body(f)
-
 environment(f)
 
 ```
@@ -79,7 +81,7 @@ environment(f)
 
 R包含两种类型的作用域：
 
-- 词法作用域(lecical scoping),在当前函数内查找变量，然后到定义函数的地方查找变量；查找顺序：当前函数-》定义函数的地方-》全局环境-》添加包-》空环境
+- 词法作用域(lexical scoping),在当前函数内查找变量，然后到定义函数的地方查找变量；查找顺序：当前函数-》定义函数的地方-》全局环境-》添加包-》空环境
 
 - 动态作用域(dynamic scoping),在函数调用的地方查找，而不是在定义的地方查找
 
@@ -130,6 +132,7 @@ g(2)
 x <- "global"
 f1 <- function() cat("f1:", x, "\n")
 f2 <- function() cat("f2:", evalq(x, parent.frame()), "\n")
+#parent.frame() 获取当前执行函数的调用环境，不是当前环境的父环境
 fun <- function() {
   x <- "f1"
   f1()
@@ -153,8 +156,8 @@ fun()
 ##每个运算都是一次函数调用
 
 ```{r}
-x<-10
-y<-5
+x <- 10
+y <- 5
 `+`(x,y)
 
 `for`(i,1:2,print(i))
@@ -199,23 +202,23 @@ sapply(x,function(x) x[2])
 ```{r}
 #example 1
 rescale<-function(x, ...){
-  m<-mean(x,...)
-  s<-sd(x,...)
-  (x-m)/s
+  m<-mean(x, ...)
+  s<-sd(x, ...)
+  (x - m) / s
 }
-x<-c(NA,1:3)
+x <- c(NA, 1:3)
 rescale(x)
-rescale(x,na.rm=T)
+rescale(x, na.rm = T)
 #example 2
-f<-function(x)x
-g<-function(x,...)x
-f(1:4,foo="bar")
-g(1:4,foo="bar")
+f <- function(x) x
+g <- function(x, ...) x
+f(1:4, foo = "bar")
+g(1:4, foo = "bar")
 
 #example 3
-f<-function(...) list(...)
-g<-function(x,y,...) f(...)
-g(x=1,y=2,z=3,w=4)
+f <- function(...) list(...)
+g <- function(x,y,...) f(...)
+g(x = 1, y = 2, z = 3, w = 4)
 
 
 ```
@@ -223,9 +226,9 @@ g(x=1,y=2,z=3,w=4)
 ##使用参数列表来调用函数
 
 ```{r}
-args<-list(1:10,na.rm=T)
-do.call(mean,list(1:10,na.rm=T))
-do.call(rbind,mylist)
+args <- list(1:10, na.rm = T)
+do.call(mean, list(1:10, na.rm = T))
+do.call(rbind, mylist)
 
 #alist()
 
@@ -234,13 +237,13 @@ do.call(rbind,mylist)
 ##默认参数和缺失参数
 
 ```{r}
-f<-function(a=1,b=2){
-  c(a,b)
+f <- function(a = 1, b = 2) {
+  c(a, b)
 }
 f()
 
-g<-function(a=1,b=a*2){
-  c(a,b)
+g <- function(a = 1, b = a * 2) {
+  c(a, b)
 }
 ```
 
