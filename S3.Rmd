@@ -24,7 +24,7 @@ knitr::opts_chunk$set(echo =T,eval = FALSE)
 ## 通过变量创建S3对象
 
 ```{r}
- x<-1
+ x <- 1
  attr(x,'class')<-'foo'
 
  x
